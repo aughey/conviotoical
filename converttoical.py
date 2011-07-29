@@ -47,7 +47,13 @@ def parseTime(date,time):
   hour = int(times[0])
   minute = int(times[1])
   offset = int(times[4])
-  return "%04d%02d%02dT%02d%02d00" % (year,month,day,hour,minute)
+
+  res = datetime.datetime(year,month,day,hour,minute)
+  toprint = now + datetime.timedelta(days=monthoffset * 30)
+  res = res - datetime.timedelta(hours=offset)
+
+  #return "%04d%02d%02dT%02d%02d00" % (year,month,day,hour,minute)
+  return res.strftime("%Y%m%dT%H%M%SZ")
 
 
 def printevents(month,year):
@@ -63,7 +69,7 @@ def printevents(month,year):
   for event in getChildren(getChild(dom,"getMonthEventsResponse"),'event'):
     name = getChild(event,'name')
     print 'BEGIN:VEVENT'
-    print "SUMMARY:%s" % getText(name.childNodes)
+    print "SUMMARY:%s %s" % (getText(name),getText(getChild(event,'eventUrl')))
     eventdate = getChild(event,'eventDate')
     start = parseTime(getText(getChild(eventdate,'startDate')),getText(getChild(eventdate,'startTime')))
     enddate = getChild(eventdate,'endDate')
@@ -71,8 +77,8 @@ def printevents(month,year):
       enddate = getChild(eventdate,'startDate')
 
     end = parseTime(getText(enddate),getText(getChild(eventdate,'endTime')))
-    print "DTSTART;TZID=US-Central:" + start
-    print "DTEND;TZID=US-Central:" + end
+    print "DTSTART:" + start
+    print "DTEND:" + end
     print 'END:VEVENT'
 
 
