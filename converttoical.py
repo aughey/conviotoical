@@ -49,8 +49,7 @@ def parseTime(date,time):
   offset = int(times[4])
 
   res = datetime.datetime(year,month,day,hour,minute)
-  toprint = now + datetime.timedelta(days=monthoffset * 30)
-  res = res - datetime.timedelta(hours=offset)
+  res = res + datetime.timedelta(hours=offset)
 
   #return "%04d%02d%02dT%02d%02d00" % (year,month,day,hour,minute)
   return res.strftime("%Y%m%dT%H%M%SZ")
@@ -69,7 +68,7 @@ def printevents(month,year):
   for event in getChildren(getChild(dom,"getMonthEventsResponse"),'event'):
     name = getChild(event,'name')
     print 'BEGIN:VEVENT'
-    print "SUMMARY:%s" % getText(name)
+    print "SUMMARY:%s %s" % (getText(name),getText(getChild(event,'eventUrl')))
     print "URL:%s" % getText(getChild(event,'eventUrl'))
     eventdate = getChild(event,'eventDate')
     start = parseTime(getText(getChild(eventdate,'startDate')),getText(getChild(eventdate,'startTime')))
