@@ -68,9 +68,10 @@ def printevents(month,year):
   for event in getChildren(getChild(dom,"getMonthEventsResponse"),'event'):
     name = getChild(event,'name')
     print 'BEGIN:VEVENT'
-    print "SUMMARY:%s <a href=\"%s\">More Information</a>" % (getText(name),getText(getChild(event,'eventUrl')))
-    print "URL:%s" % getText(getChild(event,'eventUrl'))
+    print "SUMMARY:%s " % (getText(name))
+    print "DESCRIPTION:%s <a href=\"%s\">More Information</a>" % (getText(name),getText(getChild(event,'eventUrl')))
     print "PRODID:%s" % getText(getChild(event,'eventUrl'))
+    print "URL:%s" % getText(getChild(event,'eventUrl'))
     eventdate = getChild(event,'eventDate')
     start = parseTime(getText(getChild(eventdate,'startDate')),getText(getChild(eventdate,'startTime')))
     enddate = getChild(eventdate,'endDate')
