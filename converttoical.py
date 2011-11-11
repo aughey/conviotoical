@@ -70,6 +70,7 @@ def printevents(month,year):
     print 'BEGIN:VEVENT'
     print "SUMMARY:%s <a href=\"%s\">More Information</a>" % (getText(name),getText(getChild(event,'eventUrl')))
     print "URL:%s" % getText(getChild(event,'eventUrl'))
+    print "PRODID:%s" % getText(getChild(event,'eventUrl'))
     eventdate = getChild(event,'eventDate')
     start = parseTime(getText(getChild(eventdate,'startDate')),getText(getChild(eventdate,'startTime')))
     enddate = getChild(eventdate,'endDate')
