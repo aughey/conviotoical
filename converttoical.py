@@ -46,7 +46,7 @@ def parseTime(date,time):
   day = int(dates[2])
   hour = int(times[0])
   minute = int(times[1])
-  offset = int(times[4])
+  offset = int(dates[3])
 
   res = datetime.datetime(year,month,day,hour,minute)
   res = res + datetime.timedelta(hours=offset)
