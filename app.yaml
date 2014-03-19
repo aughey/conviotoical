@@ -1,8 +1,9 @@
 application: conviotoical
-version: 3
-runtime: python
+version: 4
+runtime: python27
 api_version: 1
+threadsafe: true
 
 handlers:
 - url: /.*
-  script: converttoical.py
+  script: converttoical.application
